@@ -3,9 +3,9 @@
 #SBATCH -N 1
 #SBATCH --wckey= xxxxxxx
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name="launching_simulation"
-#SBATCH --output=launcher_output.txt
-#SBATCH --error=launcher_error.txt
+#SBATCH --job-name="eval_simulation"
+#SBATCH --output=eval_output.txt
+#SBATCH --error=eval_error.txt
 #SBATCH --partition=cn
 #SBATCH --enable-turbo
 
@@ -24,5 +24,8 @@ configs=(
 for i in "${!configs[@]}"; do
   config_number=$((i+1))
   echo "${configs[$i]}" 
-  sbatch --wait -p cn 'run.sh' "${configs[$i]}"
+  srun --ntasks=1 Rscript R/gather.R --config "${configs[$i]}"
+  srun --ntasks=1 Rscript R/plot.R --config "${configs[$i]}"
 done
+
+srun --ntasks=1 Rscript R/LaTeX_Table.R

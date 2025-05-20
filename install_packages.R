@@ -7,12 +7,14 @@ packages <- c(
   "stats",
   "mgcv",
   "MASS",
-  "mvnfast"
+  "mvnfast",
+  "tidyverse",
+  "parallel"
 )
 
 install_if_missing <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    install.packages(pkg)
+    install.packages(pkg,repos = "https://cloud.r-project.org")
   }
 }
 

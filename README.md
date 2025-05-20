@@ -17,35 +17,45 @@ For the sake of clarity, we distinguish the code that runs a single instance of 
 
 ### Single run
 
-### Complete Experiment
-To train the model(s) in the paper, run this command:
+To perform one instance of the experiment, run this command:
 
-```train
-python train.py --input-data <path_to_data> --alpha 10 --beta 20
+```
+Rscript R/study.R --simulation_indice 0 --config "3 12 1000000 1000 1" 
 ```
 
->📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
+>📋 This code can be run on a personnal computer. The "config" parameter can be adapted to correspond to one of the six configurations considered in the article. Moreover, the complete experiment can be run using a "for loop" on the simulation indices in ./R/study.R 
+
+### Complete Experiment
+
+To perform the complete experiment, run this command:
+
+```
+sbatch launcher.sh
+```
+
+>📋 This code is based on SLURM, thus the files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
 
 ## Evaluation
 
-To evaluate my model on ImageNet, run:
+To evaluate the performances of the different approaches, run this command:
 
-```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+```
+sbatch eval.sh
+
 ```
 
->📋  Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below).
+>📋  The outputs of ./R/gather.R are used to obtain the Monte-Carlo estimates described in the article and ./R/LaTeX_Table.R converts the result into the LaTeX presented in the article.
 
 ## Results
 
-We copy here the results from the article:
+We copy here the main experimental results from the article:
 
 ### SCP for joint coverage based on ellipsoidal sets
 
 |     Matrix A      | Config. |     Alg. (1)   |     Alg. (2)       |
 |-------------------|---------|----------------|--------------------|
-| $\hat\Sigma^{-1}$ |    1    | 17.4 ± 0.6     | **16.5 ± 0.55**    |
-| $\hat\Sigma^{-1}$ |    2    | 3.36 ± 0.12    | **3.19 ± 0.11**    |
+| $\widehat{\Sigma}^{-1}$ |    1    | 17.4 ± 0.6     | **16.5 ± 0.55**    |
+| $\widehat{\Sigma}^{-1}$ |    2    | 3.36 ± 0.12    | **3.19 ± 0.11**    |
 
 ### Component-wise SCP
 
