@@ -1,5 +1,5 @@
-# Conformal-Prediction-for-Hierarchical-Data
-This repository is the official implementation of [Conformal Prediction for Hierarchical Data](https://arxiv.org/abs/2411.13479). 
+# Conformal Prediction for Hierarchical-Data
+This repository is the official implementation of Conformal Prediction for Hierarchical Data. 
 
 ## Requirements
 
@@ -9,9 +9,9 @@ To install the packages:
 Rscript install_packages.R
 ```
 
->📋  The experiments are run under R version 3.6.1 
+>📋  The experiments are run under [R version 3.6.1](https://cran-archive.r-project.org/bin/windows/base/old/3.6.1/).
 
-## Run of the Experiments
+## Running Experiments
 
 For the sake of clarity, we distinguish the code that runs a single instance of the code from the one which runs the entire experiment presented in the article.
 
@@ -23,7 +23,7 @@ To perform one instance of the experiment, run this command:
 Rscript R/study.R --simulation_indice 0 --config "3 12 1000000 1000 1" 
 ```
 
->📋 This code can be run on a personnal computer. The "config" parameter can be adapted to correspond to one of the six configurations considered in the article. Moreover, the complete experiment can be run using a "for loop" on the simulation indices in ./R/study.R 
+>📋 This code can be run on a personnal computer. The "config" parameter can be adapted to correspond to one of the six configurations considered in the article. The arguments of the "config" parameter in the above example are depth = 3, n = 12, T = $10^6$, N= $10^3$ (not used here) and 1, the configuration index. The complete experiment can be run using a "for loop" on the simulation indices in ./R/study.R (but we prefer the parallelized setup described in the following section).
 
 ### Complete Experiment
 
@@ -33,18 +33,18 @@ To perform the complete experiment, run this command:
 sbatch launcher.sh
 ```
 
->📋 This code is based on SLURM, thus the files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
+>📋 This code is based on SLURM, thus require adequate computational ressources (typically a Linux high performance computing environment). The files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
 
 ## Evaluation
 
-To evaluate the performances of the different approaches, run this command:
+To evaluate the performances of the complete experiment for the different approaches, run this command:
 
 ```
 sbatch eval.sh
-
 ```
 
->📋  The outputs of ./R/gather.R are used to obtain the Monte-Carlo estimates described in the article and ./R/LaTeX_Table.R converts the result into the LaTeX presented in the article.
+>📋 The outputs are, among other things, the figures and two .txt files containing the LaTeX code used to reconstruct the tables.
+
 
 ## Results
 
