@@ -59,7 +59,7 @@ generate_multi <- function(S,n_obs){
   }
   # Add a multivariate noise to make the forecasting task more realistic 
   if (noise_type == "B"){
-    characeristics <- readRDS("../PALO ALTO/Data/characteristics_distrib.rds")
+    characeristics <- readRDS("...")
     noise <- fl(rmvt(n_obs, mu = characeristics[[1]], sigma = characeristics[[2]], df = 3))
   }else{
     # Use Cholesky to generate a random covariance matrix
@@ -110,7 +110,7 @@ conformal <- function(data_calib, data_test, n, m, method, alpha = 0.1){
 ### Compute the 2m-th root of the determinant of A in a robust fashion  ###
 root_det <- function(A) {
   m <- nrow(A)
-  d <- determinant(A, logarithm = TRUE)  # plus stable numériquement
+  d <- determinant(A, logarithm = TRUE) 
   sign <- d$sign
   modulus <- d$modulus
   root_modulus <- exp(as.numeric(modulus) / (2*m))
@@ -145,14 +145,13 @@ metrics_proba_multi <- function(data_calib, Sigma, data_test, n, m,  methods, al
   data_list <- list()  
   joint_results <- list()
   for (method in methods) {
-    print("First the simultaneous coverage")
+    print("First the component-wise coverage")
     info_interval <- conformal(data_calib, data_test, n, m, method, alpha = alpha)
     info_interval$method <- method
     data_list[[method]] <- info_interval
     print("Then the joint coverage")
     joint_results[[method]] <- joint_conformal(data_calib, Sigma, data_test, n, m, method, alpha = alpha)
   }
-  print("By now everything should be fine")
   combined_data <- do.call(rbind, data_list)
   long_data <- combined_data %>%
     pivot_longer(cols = starts_with("V"), names_to = "variable", values_to = "value")
@@ -176,14 +175,14 @@ simulation_multi <- function(S, n_obs, model){
   data <- as.data.frame(cbind(t(Y),Features)) 
   colnames(data) <- c(paste0("V",1:m),"X1","X2","X3")
   prediction_fast <- function(data, model = "gam", train, m){
-    forecasts <- fl(matrix(0, nrow(data)-length(train), m))
-    for (i in 1:m){
+  forecasts <- fl(matrix(0, nrow(data)-length(train), m))
+  for (i in 1:m){
       print(paste0("i = ",i))
       # Start with the top levels
       if(i < m-n+1){
         if (model == "gam"){
           formula_i <- as.formula(paste0("V",i,"~s(X1)+s(X2)+s(X3)"))            
-          # model_i   <- bam(formula_i,data = training_data, sp = c(1,1,1),discrete = TRUE)
+          # model_i   <- bam(formula_i,data = training_data, sp = c(1,1,1), discrete = TRUE)
           model_i   <- bam(formula_i, data = data[train,c(paste0("V",i),"X1","X2","X3")], sp = c(1,1,1), discrete = TRUE)
           model_i$model <- NULL
         }
@@ -197,10 +196,10 @@ simulation_multi <- function(S, n_obs, model){
         if (model == "gam"){
           if(rbernoulli(1,0.8)){ # The number of 'bad prediction' has to be tuned to illustrate different behaviors
             formula_i <- as.formula(paste0("V",i,"~s(X1)+s(X2)+s(X3)"))  
-            model_i   <- bam(formula = formula_i,data = data[train,c(paste0("V",i),"X1","X2","X3")],sp = c(1,1,1),discrete = TRUE)
+            model_i   <- bam(formula = formula_i,data = data[train,c(paste0("V",i),"X1","X2","X3")],sp = c(1,1,1), discrete = TRUE)
           }else{
             formula_i <- as.formula(paste0("V",i,"~s(X1)+s(X2)")) 
-            model_i   <- bam(formula = formula_i,data = data[train,c(paste0("V",i),"X1","X2")],sp = c(1,1),discrete = TRUE)
+            model_i   <- bam(formula = formula_i,data = data[train,c(paste0("V",i),"X1","X2")],sp = c(1,1), discrete = TRUE)
           }
         }
         if (model =="lm"){
