@@ -32,7 +32,7 @@ for(n in c(12, 12**2, 12**3)){
       ) %>%
       mutate(method = factor(method, levels = c("Direct", "OLS","WLS","Combi","MinT"))) %>%
       arrange(method)
-    Length <- summarised_df %>% filter(metric == "Length") %>% mutate(Averaged_values = m*Averaged_values)# Je vais *m car j'ai pris la moyenne et non la somme avant
+    Length <- summarised_df %>% filter(metric == "Length") %>% mutate(Averaged_values = m*Averaged_values) # the "times m" is to get the sum from the average
     Length <-  Length %>% group_by(method) %>%
       summarise(
         sqrt_Mean_Length = sqrt(mean(Averaged_values, na.rm = TRUE)),
@@ -54,7 +54,7 @@ for(n in c(12, 12**2, 12**3)){
 }
 
 # Table of Coverages
-sink("./fichier_LaTeX.txt")
+sink("./LaTeX_file.txt")
 cat(get_table(t(results_length),t(uncertainty_length)))
 # Table of Lengths (sqrt)
 cat(get_table(t(results_coverage),t(uncertainty_coverage),bold=FALSE))
@@ -106,7 +106,7 @@ for(n in c(12)){
 }
 
 # Table of Coverages
-sink("./fichier_LaTeX_joint.txt")
+sink("./LaTeX_joint_file.txt")
 cat(get_table(t(results_Volume),t(uncertainty_Volume),digits = 3))
 # Table of Lengths (sqrt)
 cat(get_table(t(results_coverage),t(uncertainty_coverage),bold=FALSE))
