@@ -1,4 +1,4 @@
-# Conformal Prediction for Hierarchical-Data
+# Conformal Prediction for Hierarchical Data
 This repository is the official implementation of Conformal Prediction for Hierarchical Data. 
 
 ## Requirements
@@ -13,7 +13,7 @@ Rscript install_packages.R
 
 ## Running Experiments
 
-For the sake of clarity, we distinguish the code that runs a single instance of the code from the one which runs the entire experiment presented in the article.
+For the sake of clarity, we distinguish the code that runs a single instance (or job) from the one which runs the entire experiment presented in the article.
 
 ### Single run
 
@@ -33,7 +33,7 @@ To perform the complete experiment, run this command:
 sbatch launcher.sh
 ```
 
->📋 This code is based on SLURM, thus require adequate computational ressources (typically a Linux high performance computing environment). The files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
+>📋 This code is based on SLURM, thus it require adequate computational ressources (typically a Linux high performance computing environment). The files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
 
 ## Evaluation
 
