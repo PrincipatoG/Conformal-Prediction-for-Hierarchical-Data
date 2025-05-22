@@ -11,4 +11,4 @@
 source xxxxxxx r-env
 
 CONFIG_FILE=$1
-srun Rscript R/study.R --simulation_indice $SLURM_ARRAY_TASK_ID --config "$CONFIG_FILE"
+srun Rscript R/study.R --simulation_index $SLURM_ARRAY_TASK_ID --config "$CONFIG_FILE"

@@ -8,8 +8,8 @@ packages <- c(
   "mgcv",
   "MASS",
   "mvnfast",
-  "tidyverse",
-  "parallel"
+  "parallel",
+  "purrr"
 )
 
 install_if_missing <- function(pkg) {

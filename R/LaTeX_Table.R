@@ -1,5 +1,4 @@
 rm(list = ls())
-library(tidyverse)
 library(MASS)
 library(mgcv)
 library(mvnfast)

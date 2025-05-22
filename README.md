@@ -20,7 +20,7 @@ For the sake of clarity, we distinguish the code that runs a single instance (or
 To perform one instance of the experiment, run this command:
 
 ```
-Rscript R/study.R --simulation_indice 0 --config "3 12 1000000 1000 1" 
+Rscript R/study.R --simulation_index 0 --config "3 12 1000000 1000 1" 
 ```
 
 >📋 This code can be run on a personnal computer. The "config" parameter can be adapted to correspond to one of the six configurations considered in the article. The arguments of the "config" parameter in the above example are depth = 3, n = 12, T = $10^6$, N= $10^3$ (not used here) and 1, the configuration index. The complete experiment can be run using a "for loop" on the simulation indices in ./R/study.R (but we prefer the parallelized setup described in the following section).

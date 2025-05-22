@@ -1,5 +1,4 @@
 rm(list = ls())
-library(tidyverse)
 library(MASS)
 library(mgcv)
 library(mvnfast)
@@ -17,8 +16,8 @@ print(num_cores)
 
 args <- commandArgs(trailingOnly = TRUE)
 for (i in seq_along(args)) {
-  if (args[i] == "--simulation_indice" && i < length(args)) {
-    simulation_indice <- as.numeric(args[i + 1])
+  if (args[i] == "--simulation_index" && i < length(args)) {
+    simulation_index <- as.numeric(args[i + 1])
   }
   if (args[i] == "--config" && i < length(args)) {
     config_vals <- strsplit(args[i + 1], " ")[[1]]
