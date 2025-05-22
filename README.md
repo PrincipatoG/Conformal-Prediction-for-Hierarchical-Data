@@ -33,7 +33,7 @@ To perform the complete experiment, run this command:
 sbatch launcher.sh
 ```
 
->📋 This code is based on SLURM, thus it require adequate computational ressources (typically a Linux high performance computing environment). The files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
+>📋 This code is based on SLURM, thus it requires adequate computational ressources (typically a Linux high performance computing environment). The files launcher.sh and run.sh shall be modified to corresponds to your own computational ressources.
 
 ## Evaluation
 
